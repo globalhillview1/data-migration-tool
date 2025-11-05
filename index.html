@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firestore Data Migrator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; }
+    </style>
+</head>
+<body>
+    <div class="max-w-4xl mx-auto p-8">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Data Migration Tool</h1>
+        <div id="status-box" class="p-4 rounded-lg shadow-md bg-white">
+            <p id="status" class="text-lg font-medium text-gray-700">Initializing Firebase...</p>
+            <p id="error-message" class="text-red-500 mt-2 hidden"></p>
+        </div>
+        <button id="migrate-button" class="mt-6 w-full py-3 bg-indigo-600 text-white font-semibold rounded-lg shadow-lg hover:bg-indigo-700 transition duration-150 disabled:bg-indigo-400" disabled>
+            Start Data Migration
+        </button>
+
+        <div id="migration-log" class="mt-8 bg-gray-100 p-4 rounded-lg text-sm h-64 overflow-y-scroll space-y-1">
+            <h2 class="font-semibold text-gray-800 sticky top-0 bg-gray-100 pb-2">Migration Log:</h2>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, setDoc, doc, writeBatch, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // =================================================================
+        // STEP 2 IN TUTORIAL: REPLACE THESE PLACEHOLDERS WITH YOUR OWN CONFIG!
+        // =================================================================
+
+        // This is a unique ID to group your data in Firestore. Change it to something unique like 'enviro-helpdesk-v1'
+        const appId = 'enviro-helpdesk-migration';
+
+        // Get this config object from your Firebase project settings (Step 3)
+        const firebaseConfig = {
+            apiKey: "AIzaSyAvie8Dl29b1uud4HH0rWIgQhoE3Juuxms",
+            authDomain: "ghvian-30834.firebaseapp.com",
+            projectId: "ghvian-30834", // e.g., 'enviro-helpdesk-2025'
+            storageBucket: "ghvian-30834.firebasestorage.app",
+            messagingSenderId: "552202155465",
+            appId: "1:552202155465:web:78cc1da8db94d2d06b2418"
+        };
+        // =================================================================
+
+        let db, auth, userId = 'unknown';
+        let isAuthReady = false;
+
+        const statusEl = document.getElementById('status');
+        const errorEl = document.getElementById('error-message');
+        const migrateButton = document.getElementById('migrate-button');
+        const logEl = document.getElementById('migration-log');
+
+        setLogLevel('Debug');
+
+        /**
+         * Parses a date string into a valid Date object.
+         */
+        function parseDateString(dateStr) {
+            const trimmedStr = String(dateStr || '').trim();
+            if (trimmedStr === '') { return null; }
+
+            // 1. Try ISO-like format
+            let date = new Date(trimmedStr);
+            if (!isNaN(date.getTime())) { return date; }
+
+            // 2. Try DD-MM-YYYY format
+            const ddMmYyyyMatch = trimmedStr.match(/^(\d{2})[-/](\d{2})[-/](\d{4})(?:\s(\d{2}):(\d{2}):(\d{2}))?$/);
+            if (ddMmYyyyMatch) {
+                const day = parseInt(ddMmYyyyMatch[1], 10);
+                const month = parseInt(ddMmYyyyMatch[2], 10) - 1; 
+                const year = parseInt(ddMmYyyyMatch[3], 10);
+                const hours = parseInt(ddMmYyyyMatch[4] || '0', 10);
+                const minutes = parseInt(ddMmYyyyMatch[5] || '0', 10);
+                const seconds = parseInt(ddMmYyyyMatch[6] || '0', 10);
+                date = new Date(Date.UTC(year, month, day, hours, minutes, seconds));
+                if (!isNaN(date.getTime())) { return date; }
+            }
+
+            console.warn(`Could not parse date: "${trimmedStr}". Returning null.`);
+            return null;
+        }
+
+        function log(message, isError = false) {
+            const entry = document.createElement('p');
+            entry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            entry.className = isError ? 'text-red-600' : 'text-gray-600';
+            logEl.appendChild(entry);
+            logEl.scrollTop = logEl.scrollHeight;
+            if (isError) {
+                console.error(message);
+            } else {
+                console.log(message);
+            }
+        }
+
+        function csvToArray(csvString) {
+            const lines = csvString.trim().split('\n').filter(line => line.trim() !== '');
+            if (lines.length < 1) return [];
+
+            const headers = lines[0].split(',').map(h => h.trim());
+            const data = [];
+
+            for (let i = 1; i < lines.length; i++) {
+                const values = lines[i].split(',');
+                if (values.length !== headers.length) {
+                    console.warn(`Skipping malformed line ${i + 1}: Expected ${headers.length} columns, got ${values.length}.`);
+                    continue; 
+                }
+
+                const item = {};
+                for (let j = 0; j < headers.length; j++) {
+                    let val = values[j].trim().replace(/^"|"$/g, '');
+                    item[headers[j]] = val;
+                }
+                data.push(item);
+            }
+            return data;
+        }
+
+        // --- FULL CSV DATA FOR MIGRATION (Your uploaded data remains here) ---
+        const usersCsv = `Username,PasswordHash,Role,Active,Created,Last Login
+admin,f88d7ddc8832d21d827b2c52eb1403b79376769855ac27c4ffede67d9d0c0012,admin,True,2025-11-02 14:51:17,2025-11-04
+user1,hash1,member,True,2025-10-15 10:00:00,`;
+
+        const transactionsCsv = `Date,Type,Category,Sub-category,Amount,Party,Notes,Cost Center,Payment Mode,Ref/Invoice,Attachment URL,Cleared?
+27-09-2025,Income,Maintenance,Common Maintenance,350000,–,Sep 2025 maintenance,Society,Bank,–,–,True
+27-09-2025,Income,Events,School Hall Rent,20000,ABC School,–,Community Hall,UPI,–,–,True
+27-09-2025,Income,Fines,Parking Fine,1500,"Flat -1201, Tower-1",–,–,Cash,–,–,True
+27-09-2025,Expense,Salaries,Security,180000,Falcon Guarding,Sept salary,Security,Bank,INV-123,–,True
+27-09-2025,Expense,Salaries,Housekeeping,120000,HK Vendor,Sept,Housekeeping,Bank,INV-456,–,True
+27-09-2025,Expense,Utilities,Electricity (Common),95000,State Utility,–,–,Bank,–,–,True
+27-09-2025,Expense,Repair & Maintenance,Lift AMC,60000,ABC Elevators,AMC Q3,R&M,Bank,–,–,True`;
+
+        const issuesCsv = `Tracking ID,Date and Time Raised,Tower,Flat,Issue,Description,Media URL,Status,Redressal Remark,User ID,Date and Time Resolved,Time Taken,Feedback Rating
+9645,2025-09-17 22:50:00,Tower 1,Flat 405,SmartMeterApp,Thanks,https://api.telegram.org/file/bot8238840551:AAGxhebnFIg8alAIs6eP0L-lJqAQytRxHRo/photos/file_19.jpg,Open,Making it resolved jj,1460260782,2025-09-17 22:51:00,1m,5
+8601,2025-09-18 00:00:00,Tower 1,Flat 1906,Washroom,Bharat,https://api.telegram.org/file/bot8238840551:AAGxhebnFIg8alAIs6eP0L-lJqAQytRxHRo/photos/file_19.jpg,InProgress,Assigned to Ramesh (18-Sep 00:01) | Status → Open (18-Sep 00:02),1460260782,,,\n4819,2025-09-19 15:30:00,Tower 1,Flat 1203,Washroom,Happy,https://api.telegram.org/file/bot8238840551:AAGxhebnFIg8alAIs6eP0L-lJqAQytRxHRo/photos/file_20.jpg,Resolved,Testing one more entry and checking typing as well 66666666,1460260782,`;
+        
+        // --- End of CSV Data ---
+
+        const usersData = csvToArray(usersCsv);
+        const transactionsData = csvToArray(transactionsCsv);
+        const issuesData = csvToArray(issuesCsv);
+
+        async function initFirebase() {
+            try {
+                if (!firebaseConfig.apiKey || firebaseConfig.apiKey === "YOUR_API_KEY") {
+                    statusEl.textContent = 'Error: Firebase config placeholders must be replaced (See lines 78-86).';
+                    errorEl.textContent = 'Please follow Step 3 of the publishing tutorial.';
+                    errorEl.classList.remove('hidden');
+                    return;
+                }
+
+                const app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
+
+                // Authentication: Sign in anonymously, which is free and simple for a data migration tool.
+                await signInAnonymously(auth);
+                
+                // onAuthStateChanged ensures we get the final user ID after sign in
+                await new Promise((resolve) => {
+                    const unsubscribe = onAuthStateChanged(auth, (user) => {
+                        if (user) {
+                            userId = user.uid;
+                            log(`Authenticated successfully (Anonymous). User ID: ${userId}`);
+                            isAuthReady = true;
+                            unsubscribe(); // Stop listening after the first event
+                            resolve();
+                        } else {
+                            // This should not happen immediately after signInAnonymously, but acts as a fallback.
+                            log('Authentication failed to resolve user ID.', true);
+                            isAuthReady = false;
+                            resolve();
+                        }
+                    });
+                });
+
+                statusEl.textContent = 'Firebase Ready. Click to migrate data.';
+                migrateButton.disabled = false;
+
+            } catch (e) {
+                statusEl.textContent = 'Fatal error during Firebase initialization.';
+                errorEl.textContent = e.message;
+                errorEl.classList.remove('hidden');
+                console.error('Initialization error:', e);
+            }
+        }
+
+        /**
+         * The corrected migration function.
+         */
+        async function migrateDataToFirestore() {
+            if (!isAuthReady) {
+                log('Authentication not ready.', true);
+                return;
+            }
+
+            migrateButton.disabled = true;
+            statusEl.textContent = 'Migration in progress... Check log below.';
+
+            try {
+                // The structure uses /artifacts/{appId}/users/{userId}/...
+                // Using the anonymous user ID ensures data is saved securely under a unique path.
+
+                // --- 1. Migrate Users Data ---
+                log('Starting Users data migration...');
+                const usersCollectionPath = `/artifacts/${appId}/users/${userId}/users`;
+                let userCount = 0;
+                let userBatch = writeBatch(db);
+
+                for (const item of usersData) {
+                    const docRef = doc(db, usersCollectionPath, item.Username); 
+                    item.Created = parseDateString(item.Created);
+                    item['Last Login'] = parseDateString(item['Last Login']);
+                    userBatch.set(docRef, item);
+                    userCount++;
+                }
+                await userBatch.commit();
+                log(`Successfully migrated ${userCount} Users records.`);
+
+                // --- 2. Migrate Transactions Data ---
+                log('Starting Transactions data migration...');
+                const transactionsCollectionPath = `/artifacts/${appId}/users/${userId}/transactions`;
+                let txnCount = 0;
+                let batch = writeBatch(db);
+
+                for (const item of transactionsData) {
+                    const newDocRef = doc(collection(db, transactionsCollectionPath));
+                    item.Date = parseDateString(item.Date);
+                    item.Amount = parseFloat(item.Amount) || 0;
+                    item['Cleared?'] = item['Cleared?'] === 'True';
+                    batch.set(newDocRef, item);
+                    txnCount++;
+                    if (txnCount % 100 === 0) {
+                        await batch.commit();
+                        log(`Committed batch of ${txnCount} transactions.`);
+                        batch = writeBatch(db);
+                    }
+                }
+                await batch.commit();
+                log(`Successfully migrated ${txnCount} Transactions records.`);
+
+
+                // --- 3. Migrate Issues Data ---
+                log('Starting Issues data migration...');
+                const issuesCollectionPath = `/artifacts/${appId}/users/${userId}/issues`;
+                let issueCount = 0;
+                let issueBatch = writeBatch(db);
+                
+                for (const item of issuesData) {
+                    const newDocRef = doc(collection(db, issuesCollectionPath));
+                    item['Date and Time Raised'] = parseDateString(item['Date and Time Raised']);
+                    item['Date and Time Resolved'] = parseDateString(item['Date and Time Resolved']);
+                    issueBatch.set(newDocRef, item);
+                    issueCount++;
+                }
+                await issueBatch.commit();
+                log(`Successfully migrated ${issueCount} Issues records.`);
+
+                statusEl.textContent = 'Migration Complete! Check the log for details.';
+
+            } catch (e) {
+                statusEl.textContent = 'MIGRATION FAILED. Check console for details.';
+                errorEl.textContent = `Migration error: ${e.message}`;
+                errorEl.classList.remove('hidden');
+                console.error('Migration Error:', e);
+            } finally {
+                migrateButton.disabled = false;
+            }
+        }
+
+        migrateButton.addEventListener('click', migrateDataToFirestore);
+        
+        // Start initialization
+        initFirebase();
+    </script>
+</body>
+</html>
+```eof
