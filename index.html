@@ -115,7 +115,7 @@ user1,hash1,member,True,2025-10-15 10:00:00,`;
         const transactionsCsv = `Date,Type,Category,Sub-category,Amount,Party,Notes,Cost Center,Payment Mode,Ref/Invoice,Attachment URL,Cleared?
 27-09-2025,Income,Maintenance,Common Maintenance,350000,–,Sep 2025 maintenance,Society,Bank,–,–,True
 27-09-2025,Income,Events,School Hall Rent,20000,ABC School,–,Community Hall,UPI,–,–,True
-27-09-2025,Income,Fines,Parking Fine,1500,"Flat -1201, Tower-1",–,–,Cash,–,–,True
+27-09-2025,Income,Fines,Parking Fine,1500,Flat -1201 - Tower-1,–,–,Cash,–,–,True
 27-09-2025,Expense,Salaries,Security,180000,Falcon Guarding,Sept salary,Security,Bank,INV-123,–,True
 27-09-2025,Expense,Salaries,Housekeeping,120000,HK Vendor,Sept,Housekeeping,Bank,INV-456,–,True
 27-09-2025,Expense,Utilities,Electricity (Common),95000,State Utility,–,–,Bank,–,–,True
@@ -123,7 +123,8 @@ user1,hash1,member,True,2025-10-15 10:00:00,`;
 
         const issuesCsv = `Tracking ID,Date and Time Raised,Tower,Flat,Issue,Description,Media URL,Status,Redressal Remark,User ID,Date and Time Resolved,Time Taken,Feedback Rating
 9645,2025-09-17 22:50:00,Tower 1,Flat 405,SmartMeterApp,Thanks,https://api.telegram.org/file/bot8238840551:AAGxhebnFIg8alAIs6eP0L-lJqAQytRxHRo/photos/file_19.jpg,Open,Making it resolved jj,1460260782,2025-09-17 22:51:00,1m,5
-8601,2025-09-18 00:00:00,Tower 1,Flat 1906,Washroom,Bharat,https://api.telegram.org/file/bot8238840551:AAGxhebnFIg8alAIs6eP0L-lJqAQytRxHRo/photos/file_19.jpg,InProgress,Assigned to Ramesh (18-Sep 00:01) | Status → Open (18-Sep 00:02),1460260782,,,\n4819,2025-09-19 15:30:00,Tower 1,Flat 1203,Washroom,Happy,https://api.telegram.org/file/bot8238840551:AAGxhebnFIg8alAIs6eP0L-lJqAQytRxHRo/photos/file_20.jpg,Resolved,Testing one more entry and checking typing as well 66666666,1460260782,`;
+8601,2025-09-18 00:00:00,Tower 1,Flat 1906,Washroom,Bharat,https://api.telegram.org/file/bot8238840551:AAGxhebnFIg8alAIs6eP0L-lJqAQytRxHRo/photos/file_19.jpg,InProgress,Assigned to Ramesh (18-Sep 00:01) | Status → Open (18-Sep 00:02),1460260782,,,
+4819,2025-09-19 15:30:00,Tower 1,Flat 1203,Washroom,Happy,https://api.telegram.org/file/bot8238840551:AAGxhebnFIg8alAIs6eP0L-lJqAQytRxHRo/photos/file_20.jpg,Resolved,Testing one more entry and checking typing as well 66666666,1460260782,,,`; // FIX: Added the missing third trailing comma to match 13 columns
         
         const chartOfAccountsCsv = `Statement,Group,Category
 PL,Income,Maintenance
@@ -153,18 +154,18 @@ Opening Fund,950000`;
 3,fgzga,2025-09-25,https://drive.google.com/file/d/1YDFfqUPudIEUNUlVwsTg_hQZOrQS4sKf/view?usp=drivesdk,,dddd
 5,helpdesk (7).csv,2025-09-25,https://drive.google.com/file/d/1okIikXTJCxan67TLui14rAPpJWiek1J_/view?usp=drivesdk,,
 6,1725210544316.jpg,2025-09-25,https://drive.google.com/file/d/1GtdpO4aw2SYjtLwpjufyRGBag29yBbBY/view?usp=drivesdk,,
-7,Srujjjjjj System Admin.docx,2025-09-24,https://docs.google.com/document/d/10o4JDjJOpgK8MnBCdsF3sz`; // <-- FIX: Missing closing backtick added here.
+7,Srujjjjjj System Admin.docx,2025-09-24,https://docs.google.com/document/d/10o4JDjJOpgK8MnBCdsF3sz,,`;
 
         const noticesCsv = `Serial Number,Subject,Date,Notice
 1,Water,2025-09-25,STP water in all ways
 2,STP,2025-09-25,STP WATER
-3,Code,2025-09-25,"<!DOCTYPE html>\n<html lang=""en"">\n<head>\n  <link rel=""alternate icon"" href=""/favicon.ico"">\n  <link rel=""icon"" type=""image/png"" sizes=""32x32"" href=""/favicon-32x32.png"">\n  <link rel=""icon"" type=""image/png"" sizes=""16x16"" href=""/favicon-16x16.png"">\n  <link rel=""apple-touch-icon"" href=""/apple-touch-icon.png"">\n  <link rel=""manifest"" href=""/site.webmanifest"">\n  <meta charset=""UTF-8"">\n  <meta name=""viewport"" content=""width=device-width,initial-scale=1"">\n  <title>Document Repository | Global Hillview</title>\n\n  <!-- No-paint guard -->\n  <script>\n    (function(){ try{ if(!localStorage.getItem('token')){ document.documentElement.style.display='none'; location.replace('/login'); } }catch{ document.documentElement.style.display='none'; location.replace('/login'); }})();\n  </script>\n\n  <style>\n    :root{ --bg:#f7f9fc; --card:#fff; --text:#0f172a; --muted:#6b7280; --border:#e5e7..."}
+3,Code,2025-09-25,"HTML Content Placeholder: Original content was malformed HTML/CSS snippet."
 4,Testing,2025-09-25,Stil testing
 5,Test notice,2025-09-25,masx
 7,sd,2025-09-25,SGASA
 8,JHKHK,2025-09-25,J;JK'LJJ
-9,Faltu file,2025-09-25,"Attachment: https://drive.google.com/file/d/1__YMjt0EzSfohKqKV1eqCnPUmVpBc6jv/view?usp=drivesdk\n\nwaise hi"
-10,Fan,2025-09-25,"New fans installed in mosque\n\nAttachment: https://drive.google.com/file/d/1I7m4/view?usp=drivesdk"}`;
+9,Faltu file,2025-09-25,"Attachment: https://drive.google.com/file/d/1__YMjt0EzSfohKqKV1eqCnPUmVpBc6jv/view?usp=drivesdk | waise hi"
+10,Fan,2025-09-25,"New fans installed in mosque | Attachment: https://drive.google.com/file/d/1I7m4/view?usp=drivesdk"`;
 
         const votersCsv = `Tower No.,Flat No.,First Owner Name,Second Owner Name,Membership Card & Share Certificate No,Elegible Voter,Discrepency,Voted Earlier
 T1,1204,Mrs. SUNITA CHAWLA,,1,Yes,,Yes
@@ -190,7 +191,7 @@ T1,1704,Mr. Mukesh Kumar,,11,Yes,,Yes`;
 ,Marco Rossi,,,,61000,marco.rossi@example.com,Male,2025-04-28,
 ,Sarah Lee,,,,80000,sarah.lee@example.com,Female,2025-03-17,
 ,David Khan,,,,75000,david.khan@example.com,Male,2025-02-05,
-11,Abhishek Srivastava,Finance,VP,Day,9958277484,akram12@srivastava.com`;
+11,Abhishek Srivastava,Finance,VP,Day,9958277484,akram12@srivastava.com,,,`;
         
         // --- End of CSV Data ---
 
