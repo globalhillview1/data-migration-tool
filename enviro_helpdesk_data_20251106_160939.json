@@ -1,0 +1,607 @@
+{
+  "users": [
+    {
+      "Username": "admin",
+      "PasswordHash": "f88d7ddc8832d21d827b2c52eb1403b79376769855ac27c4ffede67d9d0c0012",
+      "Role": "admin",
+      "Active": true,
+      "Created": "2025-11-02T09:21:17.000Z",
+      "Last Login": "2025-11-04T00:00:00.000Z"
+    },
+    {
+      "Username": "user1",
+      "PasswordHash": "hash1",
+      "Role": "member",
+      "Active": true,
+      "Created": "2025-10-15T04:30:00.000Z",
+      "Last Login": null
+    }
+  ],
+  "transactions": [
+    {
+      "Date": "2025-09-27T00:00:00.000Z",
+      "Type": "Income",
+      "Category": "Maintenance",
+      "Sub-category": "Common Maintenance",
+      "Amount": 350000,
+      "Party": "–",
+      "Notes": "Sep 2025 maintenance",
+      "Cost Center": "Society",
+      "Payment Mode": "Bank",
+      "Ref/Invoice": "–",
+      "Attachment URL": "–",
+      "Cleared?": true
+    },
+    {
+      "Date": "2025-09-27T00:00:00.000Z",
+      "Type": "Income",
+      "Category": "Events",
+      "Sub-category": "School Hall Rent",
+      "Amount": 20000,
+      "Party": "ABC School",
+      "Notes": "–",
+      "Cost Center": "Community Hall",
+      "Payment Mode": "UPI",
+      "Ref/Invoice": "–",
+      "Attachment URL": "–",
+      "Cleared?": true
+    },
+    {
+      "Date": "2025-09-27T00:00:00.000Z",
+      "Type": "Income",
+      "Category": "Fines",
+      "Sub-category": "Parking Fine",
+      "Amount": 1500,
+      "Party": "Flat -1201 - Tower-1",
+      "Notes": "–",
+      "Cost Center": "–",
+      "Payment Mode": "Cash",
+      "Ref/Invoice": "–",
+      "Attachment URL": "–",
+      "Cleared?": true
+    },
+    {
+      "Date": "2025-09-27T00:00:00.000Z",
+      "Type": "Expense",
+      "Category": "Salaries",
+      "Sub-category": "Security",
+      "Amount": 180000,
+      "Party": "Falcon Guarding",
+      "Notes": "Sept salary",
+      "Cost Center": "Security",
+      "Payment Mode": "Bank",
+      "Ref/Invoice": "INV-123",
+      "Attachment URL": "–",
+      "Cleared?": true
+    },
+    {
+      "Date": "2025-09-27T00:00:00.000Z",
+      "Type": "Expense",
+      "Category": "Salaries",
+      "Sub-category": "Housekeeping",
+      "Amount": 120000,
+      "Party": "HK Vendor",
+      "Notes": "Sept",
+      "Cost Center": "Housekeeping",
+      "Payment Mode": "Bank",
+      "Ref/Invoice": "INV-456",
+      "Attachment URL": "–",
+      "Cleared?": true
+    },
+    {
+      "Date": "2025-09-27T00:00:00.000Z",
+      "Type": "Expense",
+      "Category": "Utilities",
+      "Sub-category": "Electricity (Common)",
+      "Amount": 95000,
+      "Party": "State Utility",
+      "Notes": "–",
+      "Cost Center": "–",
+      "Payment Mode": "Bank",
+      "Ref/Invoice": "–",
+      "Attachment URL": "–",
+      "Cleared?": true
+    },
+    {
+      "Date": "2025-09-27T00:00:00.000Z",
+      "Type": "Expense",
+      "Category": "Repair & Maintenance",
+      "Sub-category": "Lift AMC",
+      "Amount": 60000,
+      "Party": "ABC Elevators",
+      "Notes": "AMC Q3",
+      "Cost Center": "R&M",
+      "Payment Mode": "Bank",
+      "Ref/Invoice": "–",
+      "Attachment URL": "–",
+      "Cleared?": true
+    }
+  ],
+  "issues": [
+    {
+      "Tracking ID": "9645",
+      "Date and Time Raised": "2025-09-17T17:20:00.000Z",
+      "Tower": "Tower 1",
+      "Flat": "Flat 405",
+      "Issue": "SmartMeterApp",
+      "Description": "Thanks",
+      "Media URL": "https://api.telegram.org/file/bot8238840551:AAGxhebnFIg8alAIs6eP0L-lJqAQytRxHRo/photos/file_19.jpg",
+      "Status": "Open",
+      "Redressal Remark": "Making it resolved jj",
+      "User ID": "1460260782",
+      "Date and Time Resolved": "2025-09-17T17:21:00.000Z",
+      "Time Taken": "1m",
+      "Feedback Rating": 5
+    },
+    {
+      "Tracking ID": "8601",
+      "Date and Time Raised": "2025-09-17T18:30:00.000Z",
+      "Tower": "Tower 1",
+      "Flat": "Flat 1906",
+      "Issue": "Washroom",
+      "Description": "Bharat",
+      "Media URL": "https://api.telegram.org/file/bot8238840551:AAGxhebnFIg8alAIs6eP0L-lJqAQytRxHRo/photos/file_19.jpg",
+      "Status": "InProgress",
+      "Redressal Remark": "Assigned to Ramesh (18-Sep 00:01) | Status → Open (18-Sep 00:02)",
+      "User ID": "1460260782",
+      "Date and Time Resolved": null,
+      "Time Taken": "",
+      "Feedback Rating": null
+    },
+    {
+      "Tracking ID": "4819",
+      "Date and Time Raised": "2025-09-19T10:00:00.000Z",
+      "Tower": "Tower 1",
+      "Flat": "Flat 1203",
+      "Issue": "Washroom",
+      "Description": "Happy",
+      "Media URL": "https://api.telegram.org/file/bot8238840551:AAGxhebnFIg8alAIs6eP0L-lJqAQytRxHRo/photos/file_20.jpg",
+      "Status": "Resolved",
+      "Redressal Remark": "Testing one more entry and checking typing as well 66666666",
+      "User ID": "1460260782",
+      "Date and Time Resolved": null,
+      "Time Taken": "",
+      "Feedback Rating": null
+    }
+  ],
+  "chartOfAccounts": [
+    {
+      "Statement": "PL",
+      "Group": "Income",
+      "Category": "Maintenance"
+    },
+    {
+      "Statement": "PL",
+      "Group": "Income",
+      "Category": "Events"
+    },
+    {
+      "Statement": "PL",
+      "Group": "Income",
+      "Category": "Fines"
+    },
+    {
+      "Statement": "PL",
+      "Group": "Expense",
+      "Category": "Salaries"
+    },
+    {
+      "Statement": "PL",
+      "Group": "Expense",
+      "Category": "Utilities"
+    },
+    {
+      "Statement": "PL",
+      "Group": "Expense",
+      "Category": "Repair & Maintenance"
+    },
+    {
+      "Statement": "BS",
+      "Group": "Asset",
+      "Category": "Cash"
+    },
+    {
+      "Statement": "BS",
+      "Group": "Asset",
+      "Category": "Bank"
+    },
+    {
+      "Statement": "BS",
+      "Group": "Asset",
+      "Category": "Accounts Receivable"
+    },
+    {
+      "Statement": "BS",
+      "Group": "Liability",
+      "Category": "Advance Maintenance"
+    },
+    {
+      "Statement": "BS",
+      "Group": "Liability",
+      "Category": "Accounts Payable"
+    },
+    {
+      "Statement": "BS",
+      "Group": "Equity",
+      "Category": "Opening Fund"
+    }
+  ],
+  "openingBalances": [
+    {
+      "Account": "Cash",
+      "Balance": 25000
+    },
+    {
+      "Account": "Bank",
+      "Balance": 850000
+    },
+    {
+      "Account": "Accounts Receivable",
+      "Balance": 120000
+    },
+    {
+      "Account": "Accounts Payable",
+      "Balance": 45000
+    },
+    {
+      "Account": "Advance Maintenance",
+      "Balance": 200000
+    },
+    {
+      "Account": "Opening Fund",
+      "Balance": 950000
+    }
+  ],
+  "documents": [
+    {
+      "Serial Number": "1",
+      "Subject": "STP",
+      "Date": "2025-09-25T00:00:00.000Z",
+      "Media": "",
+      "Link": "https://drive.google.com/file/d/1opE1H0_mWwguRjSaDlGPPVV3wN8Pn2jM/view?usp=drive_link",
+      "Category": ""
+    },
+    {
+      "Serial Number": "2",
+      "Subject": "Jun-25 mobile.pdf",
+      "Date": "2025-09-25T00:00:00.000Z",
+      "Media": "https://drive.google.com/file/d/1YDFfqUPudIEUNUlVwsTg_hQZOrQS4sKf/view?usp=drivesdk",
+      "Link": "",
+      "Category": "n"
+    },
+    {
+      "Serial Number": "3",
+      "Subject": "fgzga",
+      "Date": "2025-09-25T00:00:00.000Z",
+      "Media": "https://drive.google.com/file/d/1YDFfqUPudIEUNUlVwsTg_hQZOrQS4sKf/view?usp=drivesdk",
+      "Link": "",
+      "Category": "dddd"
+    },
+    {
+      "Serial Number": "5",
+      "Subject": "helpdesk (7).csv",
+      "Date": "2025-09-25T00:00:00.000Z",
+      "Media": "https://drive.google.com/file/d/1okIikXTJCxan67TLui14rAPpJWiek1J_/view?usp=drivesdk",
+      "Link": "",
+      "Category": ""
+    },
+    {
+      "Serial Number": "6",
+      "Subject": "1725210544316.jpg",
+      "Date": "2025-09-25T00:00:00.000Z",
+      "Media": "https://drive.google.com/file/d/1GtdpO4aw2SYjtLwpjufyRGBag29yBbBY/view?usp=drivesdk",
+      "Link": "",
+      "Category": ""
+    },
+    {
+      "Serial Number": "7",
+      "Subject": "Srujjjjjj System Admin.docx",
+      "Date": "2025-09-24T00:00:00.000Z",
+      "Media": "https://docs.google.com/document/d/10o4JDjJOpgK8MnBCdsF3sz",
+      "Link": "",
+      "Category": ""
+    }
+  ],
+  "notices": [
+    {
+      "Serial Number": "1",
+      "Subject": "Water",
+      "Date": "2025-09-25T00:00:00.000Z",
+      "Notice": "STP water in all ways"
+    },
+    {
+      "Serial Number": "2",
+      "Subject": "STP",
+      "Date": "2025-09-25T00:00:00.000Z",
+      "Notice": "STP WATER"
+    },
+    {
+      "Serial Number": "3",
+      "Subject": "Code",
+      "Date": "2025-09-25T00:00:00.000Z",
+      "Notice": "HTML Content Placeholder: Original content was malformed HTML/CSS snippet."
+    },
+    {
+      "Serial Number": "4",
+      "Subject": "Testing",
+      "Date": "2025-09-25T00:00:00.000Z",
+      "Notice": "Stil testing"
+    },
+    {
+      "Serial Number": "5",
+      "Subject": "Test notice",
+      "Date": "2025-09-25T00:00:00.000Z",
+      "Notice": "masx"
+    },
+    {
+      "Serial Number": "7",
+      "Subject": "sd",
+      "Date": "2025-09-25T00:00:00.000Z",
+      "Notice": "SGASA"
+    },
+    {
+      "Serial Number": "8",
+      "Subject": "JHKHK",
+      "Date": "2025-09-25T00:00:00.000Z",
+      "Notice": "J;JK'LJJ"
+    },
+    {
+      "Serial Number": "9",
+      "Subject": "Faltu file",
+      "Date": "2025-09-25T00:00:00.000Z",
+      "Notice": "Attachment: https://drive.google.com/file/d/1__YMjt0EzSfohKqKV1eqCnPUmVpBc6jv/view?usp=drivesdk | waise hi"
+    },
+    {
+      "Serial Number": "10",
+      "Subject": "Fan",
+      "Date": "2025-09-25T00:00:00.000Z",
+      "Notice": "New fans installed in mosque | Attachment: https://drive.google.com/file/d/1I7m4/view?usp=drivesdk"
+    }
+  ],
+  "voters": [
+    {
+      "Tower No.": "T1",
+      "Flat No.": "1204",
+      "First Owner Name": "Mrs. SUNITA CHAWLA",
+      "Second Owner Name": "",
+      "Membership Card & Share Certificate No": 1,
+      "Elegible Voter": true,
+      "Discrepency": "",
+      "Voted Earlier": true
+    },
+    {
+      "Tower No.": "T5",
+      "Flat No.": "505",
+      "First Owner Name": "Ms. DEEPTI SINHA",
+      "Second Owner Name": "",
+      "Membership Card & Share Certificate No": 2,
+      "Elegible Voter": true,
+      "Discrepency": "",
+      "Voted Earlier": true
+    },
+    {
+      "Tower No.": "T5",
+      "Flat No.": "302",
+      "First Owner Name": "Ashok Kumar Bansal",
+      "Second Owner Name": "",
+      "Membership Card & Share Certificate No": 3,
+      "Elegible Voter": true,
+      "Discrepency": "",
+      "Voted Earlier": true
+    },
+    {
+      "Tower No.": "T5",
+      "Flat No.": "304",
+      "First Owner Name": "Mrs. TRIPTI SINHA",
+      "Second Owner Name": "",
+      "Membership Card & Share Certificate No": 4,
+      "Elegible Voter": true,
+      "Discrepency": "",
+      "Voted Earlier": true
+    },
+    {
+      "Tower No.": "T5",
+      "Flat No.": "507",
+      "First Owner Name": "Nitish Bhardwaj",
+      "Second Owner Name": "",
+      "Membership Card & Share Certificate No": 5,
+      "Elegible Voter": true,
+      "Discrepency": "",
+      "Voted Earlier": true
+    },
+    {
+      "Tower No.": "T1",
+      "Flat No.": "1505",
+      "First Owner Name": "Mrs. AMITA SINHA",
+      "Second Owner Name": "",
+      "Membership Card & Share Certificate No": 6,
+      "Elegible Voter": true,
+      "Discrepency": "",
+      "Voted Earlier": true
+    },
+    {
+      "Tower No.": "T5",
+      "Flat No.": "104",
+      "First Owner Name": "Mr. GIRDHAR GOPAL",
+      "Second Owner Name": "",
+      "Membership Card & Share Certificate No": 7,
+      "Elegible Voter": true,
+      "Discrepency": "",
+      "Voted Earlier": true
+    },
+    {
+      "Tower No.": "T1",
+      "Flat No.": "1601",
+      "First Owner Name": "Mr. PRAVIN RAMAN",
+      "Second Owner Name": "KIRAN RAMAN",
+      "Membership Card & Share Certificate No": 8,
+      "Elegible Voter": true,
+      "Discrepency": "",
+      "Voted Earlier": true
+    },
+    {
+      "Tower No.": "T4",
+      "Flat No.": "1402",
+      "First Owner Name": "Dr. HILAL AHMAD RATHER",
+      "Second Owner Name": "",
+      "Membership Card & Share Certificate No": 9,
+      "Elegible Voter": true,
+      "Discrepency": "",
+      "Voted Earlier": true
+    },
+    {
+      "Tower No.": "B3",
+      "Flat No.": "601",
+      "First Owner Name": "Mrs. Samina Qousar",
+      "Second Owner Name": "SHEKH MOHAMMAD TARIQ",
+      "Membership Card & Share Certificate No": 10,
+      "Elegible Voter": true,
+      "Discrepency": "",
+      "Voted Earlier": true
+    },
+    {
+      "Tower No.": "T1",
+      "Flat No.": "1704",
+      "First Owner Name": "Mr. Mukesh Kumar",
+      "Second Owner Name": "",
+      "Membership Card & Share Certificate No": 11,
+      "Elegible Voter": true,
+      "Discrepency": "",
+      "Voted Earlier": true
+    }
+  ],
+  "directory": [
+    {
+      "Serial": "",
+      "Name": "Maria Lopez",
+      "Department": "",
+      "Designation": "",
+      "Shift": "",
+      "Mobile #": "136658",
+      "Email": "sfgsdf@gmail.con",
+      "Gender": "Female",
+      "Joind On": "2025-07-29T00:00:00.000Z",
+      "Salary": 0
+    },
+    {
+      "Serial": "",
+      "Name": "John Smith",
+      "Department": "",
+      "Designation": "",
+      "Shift": "",
+      "Mobile #": "98500",
+      "Email": "john.smith@example.com",
+      "Gender": "Male",
+      "Joind On": "2025-06-14T00:00:00.000Z",
+      "Salary": 0
+    },
+    {
+      "Serial": "",
+      "Name": "Priya Das",
+      "Department": "",
+      "Designation": "",
+      "Shift": "",
+      "Mobile #": "112450",
+      "Email": "priya.das@example.com",
+      "Gender": "Female",
+      "Joind On": "2025-05-02T00:00:00.000Z",
+      "Salary": 0
+    },
+    {
+      "Serial": "",
+      "Name": "Alan Wong",
+      "Department": "",
+      "Designation": "",
+      "Shift": "",
+      "Mobile #": "125000",
+      "Email": "alan.wong@example.com",
+      "Gender": "Male",
+      "Joind On": "2025-04-18T00:00:00.000Z",
+      "Salary": 0
+    },
+    {
+      "Serial": "",
+      "Name": "Alice Brown",
+      "Department": "",
+      "Designation": "",
+      "Shift": "",
+      "Mobile #": "55000",
+      "Email": "alice.brown@example.com",
+      "Gender": "Female",
+      "Joind On": "2025-07-29T00:00:00.000Z",
+      "Salary": 0
+    },
+    {
+      "Serial": "",
+      "Name": "John Smith",
+      "Department": "",
+      "Designation": "",
+      "Shift": "",
+      "Mobile #": "72000",
+      "Email": "john.smith@example.com",
+      "Gender": "Male",
+      "Joind On": "2025-06-15T00:00:00.000Z",
+      "Salary": 0
+    },
+    {
+      "Serial": "",
+      "Name": "Priya Das",
+      "Department": "",
+      "Designation": "",
+      "Shift": "",
+      "Mobile #": "68000",
+      "Email": "priya.das@example.com",
+      "Gender": "Female",
+      "Joind On": "2025-05-10T00:00:00.000Z",
+      "Salary": 0
+    },
+    {
+      "Serial": "",
+      "Name": "Marco Rossi",
+      "Department": "",
+      "Designation": "",
+      "Shift": "",
+      "Mobile #": "61000",
+      "Email": "marco.rossi@example.com",
+      "Gender": "Male",
+      "Joind On": "2025-04-28T00:00:00.000Z",
+      "Salary": 0
+    },
+    {
+      "Serial": "",
+      "Name": "Sarah Lee",
+      "Department": "",
+      "Designation": "",
+      "Shift": "",
+      "Mobile #": "80000",
+      "Email": "sarah.lee@example.com",
+      "Gender": "Female",
+      "Joind On": "2025-03-17T00:00:00.000Z",
+      "Salary": 0
+    },
+    {
+      "Serial": "",
+      "Name": "David Khan",
+      "Department": "",
+      "Designation": "",
+      "Shift": "",
+      "Mobile #": "75000",
+      "Email": "david.khan@example.com",
+      "Gender": "Male",
+      "Joind On": "2025-02-05T00:00:00.000Z",
+      "Salary": 0
+    },
+    {
+      "Serial": "11",
+      "Name": "Abhishek Srivastava",
+      "Department": "Finance",
+      "Designation": "VP",
+      "Shift": "Day",
+      "Mobile #": "9958277484",
+      "Email": "akram12@srivastava.com",
+      "Gender": "",
+      "Joind On": null,
+      "Salary": 0
+    }
+  ]
+}
